@@ -23,19 +23,18 @@ This web application is used for gathering and disseminating information about I
 Pre-Requisites:
  - Install `nodejs` on your local machine from `nodejs.org` or another installation medium.
  - Install `bower` globally by running `npm install -g bower`.
+ - Install `gulp-cli` globally by running `npm install -g gulp-cli`.
  - Install `mongodb` on your local machine. Notes for the install can be found here: `https://github.com/mongodb/mongo/blob/master/docs/building.md`
 
 To Install ImprovingU Locally:
  - Clone the repository.
  - Run `npm install`.
- - Copy `src/server/config/config.example.ts` to `src/server/config/config.ts`.
- - Configure `config.ts` from the step above with your Google OAuth2 credentials and your MongoDB instance location.
- - Run `npm run-script bower`.
- - Run `npm run-script build`.
+ - Set the `AD_IDENTITY_PROVIDER_URL` and `AD_IDENTITY_METADATA` environment variables with the Improving Active Directory endpoints. You can obtain these secrets from a core contributor.
+ - Set the `MONGO_DB` environment variable to your local Mongo endpoint. If you installed with the standard port number, then you can skip this variable and take the default.
+ - Run `npm run bower`.
+ - Run `npm run build`.
  - Start your local MongoDB server.
  - Run `npm start`.
-
-NOTE: After a change to `config.ts`, you will need to rebuild the project with `npm run-script build` and restart the server.
 
 Navigate to `http://localhost:3000/status` to see if there were any errors during startup. This is especially helpful once you deploy it to a remote server.
 
@@ -43,34 +42,11 @@ Navigate to `http://localhost:3000/status` to see if there were any errors durin
 
 By default, the application is configured to use the Mongo instance at `mongodb://localhost:27017/dev`. This is the default port, so if you have Mongo installed and running, you should be good.
 
-To change the configuration, either set the `mongoDB` setting in `src/server/config/config.ts`, or set the `MONGO_DB` environment variable. The environment variable takes precedence, and is intended for server deployments. The configuration setting is easier for development.
+To change the configuration, set the `MONGO_DB` environment variable. The default is in the `mongoDB` setting in `src/server/config/config.ts`. The environment variable takes precedence.
 
-```JavaScript
-module.exports = {
-    mongoDB: 'mongodb://localhost:27017/improvingu'
-};
-```
+### Active Directory OAuth2
 
-### Google OAuth2
-
-This application example is configured to use Google OAuth2. To switch to a different provider, install a different NPM package for your chosen [Passport](http://passportjs.org) strategy. I recommend sticking with the Google strategy for your first time.
-
-Go to the [Google Developers Console](https://console.developers.google.com) and create a new project. Go to the API Manager in the hamburger menu, and select Credentials. Create new credentials of type "OAuth client ID" for a "Web application".
-
-Add an authorized JavaScript origin for `http://localhost:3000`. Add an authorized redirect URI for `http://localhost:3000/login/callback`. Copy your client ID and client secret and put them into `src/server/config/config.ts`.
-
-```JavaScript
-module.exports = {
-    google: {
-        clientId: '12345-xxxxxx.apps.googleusercontent.com',
-        clientSecret: 'yyyyyyy'
-    }
-};
-```
-
-Back on the "Credentials" screen, click on the "OAuth consent screen" tab and set up your email address and product name.
-
-Then, back in the API Manager screen, under "Social APIs", choose "Google+ API". Enable the API. This is necessary to get the user's profile name.
+This application is configured to use OAuth2 via Active Directory. Improving hosts AD on Azure. To access the identity provider, you will need to provide two endpoints: the identity provider URL, and the metadata URL. These should be kept secret. A core contributor can provide these values to you. 
 
 ## Walkthrough
 
