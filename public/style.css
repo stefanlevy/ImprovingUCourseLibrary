@@ -211,6 +211,11 @@ input[type=text] {
     border-bottom-width: 2px;
     border-bottom-style: solid;
 }
+
+.row-student:last-child{
+    border-bottom-width: 0px;
+}
+
 .row-student:nth-child(even) {
     background-color: #eee;
 }
