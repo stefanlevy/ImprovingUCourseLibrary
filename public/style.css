@@ -203,3 +203,14 @@ input[type=text] {
 .instructional-text {
     color: #999;
 }
+
+.row-student {
+    padding: 4px 0px;
+    margin-left:3px;
+    border-bottom-color: grey;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+.row-student:nth-child(even) {
+    background-color: #eee;
+}
