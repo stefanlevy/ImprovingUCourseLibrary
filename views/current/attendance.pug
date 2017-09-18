@@ -2,11 +2,34 @@ extends ../templates/plain
 
 block variables
     - var title = "ImprovingU Attendance"
+    - var course = "{title: 'WEB101', instructor: 'Stefan Levy', date: '2017-09-15', time:'12:00'}"
+    - var students = "[{name: 'First Last', notes:['note','test']},{name: 'Second Student', notes: []},{name: 'Third Student', notes: ['one']}]"
 
 block content
     h1 Attendance
-    ul(data-bind="foreach: students")
-        li(data-bind="text: name")
+    #course_details(data-bind="with: "+course)
+            h3(data-bind="text: title") Course Title
+            h4(data-bind="text: instructor") Instructor Name
+            p(data-bind="text: date + ' ' + time")
+    hr
+    #attendence_form
+        h3#registrants_header Registrants:
+        .row
+            .col-xs-2 Present
+            .col-xs-5 Student Name
+            .col-xs-5 Student Notes
+        hr
+        div(data-bind="foreach:"+students)
+            .row.row-student
+                .col-xs-2
+                    input(type="checkbox" data-bind="value: name")
+                .col-xs-5
+                    span(data-bind="text: name")
+                .col-xs-5
+                    ul(data-bind="foreach: notes")
+                        li(data-bind="text: $data")
+        hr
+        button.btn Submit Attendence
 
 block scripts
     script(src="/public/js/jinaga.knockout.js")
