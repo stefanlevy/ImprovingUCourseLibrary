@@ -20,16 +20,20 @@ block content
             .col-xs-5 Student Notes
         hr
         div(data-bind="foreach:"+students)
-            .row.row-student
-                .col-xs-2
-                    input(type="checkbox" data-bind="value: name")
-                .col-xs-5
-                    span(data-bind="text: name")
-                .col-xs-5
-                    ul(data-bind="foreach: notes")
-                        li(data-bind="text: $data")
+            .row-student
+                input(type="checkbox" data-bind="attr:{'id':name}")
+                .btn-group
+                    label(data-bind="attr:{'for': name}" class="btn btn-default align-middle col-xs-12")
+                        .col-xs-2
+                            span(style="font-size:2.5em;" class="glyphicon glyphicon-ok btn-success")
+                            span
+                        .col-xs-5
+                            span(data-bind="text: name")
+                        .col-xs-5
+                            ul(data-bind="foreach: notes")
+                                li(data-bind="text: $data")
         hr
-        button.btn Submit Attendence
+        button.btn.btn-info Submit Attendence
 
 block scripts
     script(src="/public/js/jinaga.knockout.js")
