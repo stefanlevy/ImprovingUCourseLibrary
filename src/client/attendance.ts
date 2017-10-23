@@ -36,3 +36,21 @@ function registrationsForAttendanceSheet(s: AttendanceSheet) : CourseRegistratio
         course: s.session.course
     }
 }
+
+function courseForAttendanceSheet(s: AttendanceSheet) : Course {
+    (<any>s).has("session").has("course");
+    return s.session.course;
+}
+
+function sessionForAttendanceSheet(s: AttendanceSheet) : Session {
+    (<any>s).has("session");
+    return s.session;
+}
+
+function stringToArray(s: string) : string[] {
+    try {   
+        return s.split('\n');
+    } catch(ex) {
+     return s;
+    }
+}

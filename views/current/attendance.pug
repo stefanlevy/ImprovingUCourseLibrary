@@ -2,36 +2,38 @@ extends ../templates/plain
 
 block variables
     - var title = "ImprovingU Attendance"
-    - var course = "{title: 'WEB101', instructor: 'Stefan Levy', date: '2017-09-15', time:'12:00'}"
     - var students = "[{name: 'First Last', notes:['note','test']},{name: 'Second Student', notes: []},{name: 'Third Student', notes: ['one']}]"
 
 block content
     h1 Attendance
-    #course_details(data-bind="with: "+course)
+    #course_details
             h3(data-bind="text: title") Course Title
             h4(data-bind="text: instructor") Instructor Name
-            p(data-bind="text: date + ' ' + time")
+            p
+                span(data-bind="text: catalogDate().date")
+                span &nbsp;&nbsp;&nbsp;
+                span(data-bind="text: time")
     hr
     #attendence_form
         h3#registrants_header Registrants:
         .row
             .col-xs-2 Present
-            .col-xs-5 Student Name
-            .col-xs-5 Student Notes
+            .col-xs-4 Student Name
+            .col-xs-6 Student Notes
         hr
-        div(data-bind="foreach:"+students)
+        div(data-bind="foreach:students")
             .row-student
                 input(type="checkbox" data-bind="attr:{'id':name}")
                 .btn-group
                     label(data-bind="attr:{'for': name}" class="btn btn-default align-middle col-xs-12")
-                        .col-xs-2
+                        .col-xs-2(style="padding-left:0px;")
                             span(style="font-size:2.5em;" class="glyphicon glyphicon-ok btn-success")
                             span
-                        .col-xs-5
-                            span(data-bind="text: name")
-                        .col-xs-5
-                            ul(data-bind="foreach: notes")
-                                li(data-bind="text: $data")
+                        .col-xs-4(style="padding-left:0px;")
+                            h4(data-bind="text: name" class="word-break")
+                        .col-xs-6
+                            ul(class="notes-list" data-bind="foreach: stringToArray(notes())")
+                                li(data-bind="text: $data" class="note-element word-break")
         hr
         button.btn.btn-info Submit Attendence
 

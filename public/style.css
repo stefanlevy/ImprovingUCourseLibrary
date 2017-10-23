@@ -204,9 +204,6 @@ input[type=text] {
     color: #999;
 }
 
-.row-student input[type="checkbox"]:checked + .btn-group > label {
-    background-color: #5cb85c;
-}
 .row-student input[type="checkbox"] {
     display: none;
 }
@@ -236,4 +233,22 @@ input[type=text] {
 }
 .row-student input[type="checkbox"]:checked + .btn-group > label .col-xs-2 span:second-child {
     display: none;   
+}
+
+.row-student input[type="checkbox"]:checked + .btn-group > label {
+    background-color: #5cb85c;
+}
+
+.notes-list {
+    list-style-type: circle;
+    padding-left: 15px;
+}
+.note-element {
+    font-size: .75em;
+}
+
+.word-break {
+    overflow-wrap: normal;
+    word-wrap: normal;
+    white-space: normal !important;
 }

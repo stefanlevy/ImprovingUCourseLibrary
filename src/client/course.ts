@@ -53,6 +53,21 @@ class CourseTitle {
     }
 }
 
+class CourseInstructor {
+    public static Type = "ImprovingU.Course.Instructor";
+    public type: string;
+
+    constructor (
+        public from?: User,
+        public course?: Course,
+        public value?: string,
+        public prior?: CourseInstructor[],
+        public _in?: Catalog
+    ) {
+        this.type = CourseInstructor.Type;
+    }
+}
+
 
 // Template functions
 function courseIsDeleted(c: Course) : CourseDelete {
@@ -84,4 +99,18 @@ function titlesForCourse(c: Course) : CourseTitle {
         type: CourseTitle.Type,
         course: c
     }, [courseTitleIsCurrent]);
+}
+
+function courseInstructorIsCurrent(n: CourseInstructor) : CourseInstructor {
+    return j.not({
+        type: CourseInstructor.Type,
+        prior: [n]
+    });
+}
+
+function instructorsForCourse(c: Course) : CourseInstructor {
+    return j.where({
+        type: CourseInstructor.Type,
+        course: c
+    }, [courseInstructorIsCurrent]);
 }
